@@ -42,6 +42,9 @@ Componente SQUARE en componente clase:
     handleClick(i){//Va a recibir el boton clickeado por parametro
       const squares = this.state.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
       //almaceno en la variable squares una copia del array squares en vez de modificar el original
+      if(calculateWinner(squares) || squares[i]){
+        return;
+      }
       squares[i] = this.state.xIsNext ? 'X' : 'O';
       this.setState({
         squares: squares,
