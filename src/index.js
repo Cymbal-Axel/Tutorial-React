@@ -27,7 +27,7 @@ class Square extends React.Component {
 
     handleClick(i){//Va a recibir el boton clickeado por parametro
       const squares = this.state.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
-      //almaceno en la variable squares una copia del estado
+      //almaceno en la variable squares una copia del array squares en vez de modificar el original
       squares[i] = 'X';
       this.setState({squares: squares}) //actualizo el estado para que se renderice y muestre la X
     }
