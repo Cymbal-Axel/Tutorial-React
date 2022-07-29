@@ -3,19 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 class Square extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      value: null
-    }
-  }
-  //<--------------------------ME QUEDE EN REACT.ORG "HACIENDO UN COMPONENTEINTERACTIVO"-------------------------->
-    render() {
+
+      render() {
       return (
         <button 
           className="square" 
-          onClick={()=> this.setState({value: 'X'})}>
-            {this.state.value}
+          onClick={()=> this.props.onClick()}>
+            {this.props.value}
         </button>
       );
     }
