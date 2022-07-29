@@ -2,7 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-class Square extends React.Component {
+
+function Square(props){
+  return(
+    <button 
+      className="square"
+      onClick={props.onClick}>
+        {props.value}
+    </button>
+  )
+}
+/*
+Componente SQUARE en componente clase:
+
+  class Square extends React.Component {
 
       render() {
       return (
@@ -13,7 +26,7 @@ class Square extends React.Component {
         </button>
       );
     }
-  }
+  }*/
   
   class Board extends React.Component {
     //Como Board pasó "onClick={() => this.handleClick(i)}" a Square,
@@ -22,14 +35,18 @@ class Square extends React.Component {
       super(props);
       this.state = {
         squares: Array(9).fill(null),
+        xIsNext: true,
       }
     }
 
     handleClick(i){//Va a recibir el boton clickeado por parametro
       const squares = this.state.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
       //almaceno en la variable squares una copia del array squares en vez de modificar el original
-      squares[i] = 'X';
-      this.setState({squares: squares}) //actualizo el estado para que se renderice y muestre la X
+      squares[i] = this.state.xIsNext ? 'X' : 'O';
+      this.setState({
+        squares: squares,
+        xIsNext: !this.state.xIsNext //duda
+      }) //actualizo el estado para que muestre el valor cambiado
     }
 
     renderSquare(i) {
@@ -39,7 +56,7 @@ class Square extends React.Component {
     }
   
     render() {
-      const status = 'Next player: X';
+      const status = `Next Player: ${this.state.xIsNext ? 'X' : 'O'}`;
   
       return (
         <div>
