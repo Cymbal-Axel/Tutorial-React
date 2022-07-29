@@ -16,12 +16,22 @@ class Square extends React.Component {
   }
   
   class Board extends React.Component {
+    //Como Board pasó "onClick={() => this.handleClick(i)}" a Square,
+    // el componente Square llama al handleClick(i) de Board cuando es clickeado. 
     constructor(props){
       super(props);
       this.state = {
         squares: Array(9).fill(null),
       }
     }
+
+    handleClick(i){//Va a recibir el boton clickeado por parametro
+      const squares = this.state.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
+      //almaceno en la variable squares una copia del estado
+      squares[i] = 'X';
+      this.setState({squares: squares}) //actualizo el estado para que se renderice y muestre la X
+    }
+
     renderSquare(i) {
       return (<Square 
                 value={this.state.squares[i]}
