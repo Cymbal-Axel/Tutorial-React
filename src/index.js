@@ -49,7 +49,6 @@ Componente SQUARE en componente clase:
   
     render() {
 
-  
       return (
         <div>
           <div className="board-row">
@@ -79,11 +78,13 @@ Componente SQUARE en componente clase:
         history: [{
           squares: Array(9).fill(null),
         }],
+        stepNumber: 0,
         xIsNext: true,
       };
     }
 
     handleClick(i){//Va a recibir el boton clickeado por parametro
+      console.log(i)
       const history = this.state.history;
       const current = history[history.length - 1];
       const squares = current.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
@@ -105,6 +106,17 @@ Componente SQUARE en componente clase:
       const current = history[history.length -1];
       const winner = calculateWinner(current.squares);
       let status;
+      const moves = history.map((step, move)=> {
+        const desc = move ?
+        'Go to move #' + move :
+        'Go to game start';
+        return(
+          <li key={move}>
+            <button onClick={()=> this.jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      });
+
       if(winner) {
         status = 'Winner: ' + winner;
       } else{
@@ -119,7 +131,7 @@ Componente SQUARE en componente clase:
           </div>
           <div className="game-info">
             <div>{ status }</div>
-            <ol>{/* TODO */}</ol>
+            <ol>{moves}</ol>
           </div>
         </div>
       );
