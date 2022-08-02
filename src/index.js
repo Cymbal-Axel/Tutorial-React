@@ -85,7 +85,7 @@ Componente SQUARE en componente clase:
 
     handleClick(i){//Va a recibir el boton clickeado por parametro
       console.log(i)
-      const history = this.state.history;
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
       const current = history[history.length - 1];
       const squares = current.squares.slice();//El método slice() devuelve una copia de una parte del array dentro de un nuevo array
       //almaceno en la variable squares una copia del array squares en vez de modificar el original
@@ -97,13 +97,21 @@ Componente SQUARE en componente clase:
         history: history.concat([{
           squares:squares,
         }]),
+        stepNumber: history.length,
         xIsNext: !this.state.xIsNext //duda
       }) //actualizo el estado para que muestre el valor cambiado
+    }
+
+    jumpTo(step){
+      this.setState({
+        stepNumber: step,
+        xIsNext: (step % 2) === 0,
+      })
     }
     
     render() {
       const history = this.state.history;
-      const current = history[history.length -1];
+      const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
       let status;
       const moves = history.map((step, move)=> {
